@@ -174,7 +174,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('update_ticket_check', 'TicketController@update_ticket_check')->name('update_ticket_check');
 
     //setting
-    Route::resource('setting', 'SettingController');
+    // The explicit 'create' / 'update/{id}' routes below own the setting.create / setting.update names.
+    Route::resource('setting', 'SettingController')->names([
+        'create' => 'setting.resource.create',
+        'update' => 'setting.resource.update',
+    ]);
 
     //setting create
     Route::get('create', 'SettingController@create')->name('setting.create');
